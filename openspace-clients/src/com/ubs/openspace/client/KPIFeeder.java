@@ -34,6 +34,7 @@ public class KPIFeeder {
 				kpi.setName("KPI_" + kpiCounter++);
 				kpi.setValue(kpiCounter);
 				kpi.setCategory("category" + ((kpiCounter%4)+1));
+				kpi.setProcessed(false);
 				gigaSpace.write(kpi);
 			}
 			System.out.println(String.format(

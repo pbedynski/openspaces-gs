@@ -11,7 +11,7 @@ import com.ubs.openspace.utils.StackUtils;
 public class KPIReader {
 
 	private final static String SPACE_CONF = "jini://*/*/OS";
-	private static final boolean VERBOSE = true;
+	private static final boolean VERBOSE = false;
 	
 	protected GigaSpace gigaSpace;
 
@@ -24,6 +24,11 @@ public class KPIReader {
 
 	}
 
+	private void printKPIstoSyso(KPI[] kpis) {
+		for (KPI kpi : kpis) {
+			System.out.println(" " + kpi.toString());
+		}
+	}
 
 	public static void main(String[] s) throws Exception {
 		System.out.println("Lookupgroups: " + System.getenv("LOOKUPGROUPS"));
@@ -33,6 +38,7 @@ public class KPIReader {
 		reader.readByValue();
 		reader.readByCategory();	
 		reader.readByCategory();
+		reader.readOnlyProcessed();
 	}
 
 	private void readByValue() {
@@ -40,11 +46,7 @@ public class KPIReader {
 		KPI[] results = gigaSpace.readMultiple(new SQLQuery<KPI>(KPI.class, "value > 5 and value < 10"));
 		long finish = System.nanoTime();
 		System.out.println(String.format(StackUtils.getMethodName() + " Got %d KPIs in %.3f ms", results.length, ((double)(finish - start) / 1000000.0)));
-		if (VERBOSE) {
-			for (KPI kpi : results) {
-				System.out.println(" " + kpi.toString());
-			}
-		}
+		if (VERBOSE) printKPIstoSyso(results);
 	}
 	
 	private void readByCategory() {
@@ -55,10 +57,16 @@ public class KPIReader {
 		KPI[] results = gigaSpace.readMultiple(templateKPI);
 		long finish = System.nanoTime();
 		System.out.println(String.format(StackUtils.getMethodName() + " Got %d KPIs in %.3f ms", results.length, ((double)(finish - start) / 1000000.0)));
-		if (VERBOSE) {
-			for (KPI kpi : results) {
-				System.out.println(" " + kpi.toString());
-			}
-		}
+		if (VERBOSE) printKPIstoSyso(results);
+	}
+	
+	private void readOnlyProcessed() {
+		KPI templateKPI = new KPI();
+		templateKPI.setProcessed(true);
+		long start = System.nanoTime();
+		KPI[] results = gigaSpace.readMultiple(templateKPI);
+		long finish = System.nanoTime();
+		System.out.println(String.format(StackUtils.getMethodName() + " Got %d KPIs in %.3f ms", results.length, ((double)(finish - start) / 1000000.0)));
+		if (VERBOSE) printKPIstoSyso(results);
 	}
 }

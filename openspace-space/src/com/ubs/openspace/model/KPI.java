@@ -15,7 +15,9 @@ public class KPI implements Serializable {
 	private String name;
 	private Integer value;
 	private String category;
+	private Boolean processed; 
 	
+	@SpaceRouting
 	public String getName() {
 		return name;
 	}
@@ -34,7 +36,6 @@ public class KPI implements Serializable {
 	}
 
 	@SpaceIndex(type=SpaceIndexType.BASIC)
-	@SpaceRouting
 	public String getCategory() {
 		return category;
 	}
@@ -47,4 +48,14 @@ public class KPI implements Serializable {
 	public String toString() {
 		return String.format("[KPI] name: %s, value: %d, category: %s",name, value, category);
 	}
+	
+	public void setProcessed(Boolean processed) {
+		this.processed = processed;
+	}
+	
+	@SpaceIndex(type=SpaceIndexType.BASIC)
+	public Boolean getProcessed() {
+		return processed;
+	}
+	
 }

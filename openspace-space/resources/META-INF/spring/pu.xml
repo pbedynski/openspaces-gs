@@ -37,4 +37,24 @@
 
 	<os-core:giga-space id="gigaspace" space="space"  />
 
+	<!-- Space Containers -->
+	
+	<bean id="KPIPollingContainer" class="com.ubs.openspace.containers.PollingModifyKPI"/>
+	
+	<os-events:polling-container id="eventKPIPollingContainer" giga-space="gigaspace">
+		
+		<os-core:template>
+			<bean class="com.ubs.openspace.model.KPI">
+				<property name="processed" value="false"/>
+			</bean>
+		</os-core:template>
+		
+		<os-events:listener>
+			<os-events:annotation-adapter>
+				<os-events:delegate ref="KPIPollingContainer"/>
+			</os-events:annotation-adapter>
+		</os-events:listener>
+		
+	</os-events:polling-container>
+
 </beans>
