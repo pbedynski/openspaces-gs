@@ -22,3 +22,12 @@ LAB02 - Polling Container
 + Generate JAR and deploy application to the space (sync2backup 2 part 1 backup).
 + Realize that we are changing a routing field 
 + Start routing based on name 
+
+LAB03 - Distributed Tasks
+-------------------------
+
++ Create an sla.xml file for deployment topology configuration
++ Create a simple distributed task to count number of primary partitions. 
++ Create a simple distributed task to count number of KPI objects in each partition and a total sum (map-reduce)
++ Generate JAR, deploy, test for HA (kill one GSC), deploy without a backup
+
