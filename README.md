@@ -31,3 +31,12 @@ LAB03 - Distributed Tasks
 + Create a simple distributed task to count number of KPI objects in each partition and a total sum (map-reduce)
 + Generate JAR, deploy, test for HA (kill one GSC), deploy without a backup
 
+LAB04 - Multi Host Configurations
+---------------------------------
+
++ Package application in a jar
++ Change env variable to 'openspaces'
++ Deploy application in pairs (4 instances 1 backup max 2 per machine)
++ Test killing one machine without changing the structure while machine is down
++ Test killing one machine and killing another GSC on the remaining one while the other is down
++ Deploy one app on all machines. Constantly test how many KPIs distributed tasks can count.
